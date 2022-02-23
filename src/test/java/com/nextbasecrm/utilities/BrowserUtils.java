@@ -1,4 +1,4 @@
-package com.cydeo.utilities;
+package com.nextbasecrm.utilities;
 
 /*
 In this class only general utility methods that are not related to some specific page.
