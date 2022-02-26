@@ -30,7 +30,7 @@ public class US_5 {
 
 
         String myMsg ="test";
-        //driver.findElement(By.xpath("//iframe[@class='bx-editor-iframe']")).sendKeys(myMsg);//
+        driver.findElement(By.xpath("//iframe[@class='bx-editor-iframe']")).sendKeys(myMsg);//
 
         //you mustr find send button locator and press on it
 
