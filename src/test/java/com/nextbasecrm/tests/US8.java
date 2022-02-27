@@ -53,7 +53,7 @@ public class US8 {
     public void test3(){
         WebElement activestream = driver.findElement(By.xpath("//div[@id='bx-desktop-tab-im-lf']"));
         String actualtext=activestream.getAttribute("title");
-        String expectedtext="Active Stream";
+        String expectedtext="Activity Stream ";
         Assert.assertTrue(actualtext.contains(expectedtext));
         ;
     }
