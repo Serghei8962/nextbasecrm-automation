@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -25,6 +26,11 @@ public class US3 {
         driver.get(ConfigurationReader.getProperty("env"));
         CRM_Utilities.crm_login(driver);
 
+    }
+    @AfterClass
+    public void afterClass(){
+        BrowserUtils.sleep(3);
+        driver.close();
     }
 
     @Test
