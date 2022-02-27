@@ -1,6 +1,7 @@
 package com.nextbasecrm.tests;
 
 import com.nextbasecrm.utilities.BrowserUtils;
+import com.nextbasecrm.utilities.ConfigurationReader;
 import com.nextbasecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -53,10 +54,10 @@ public class US1_TestCase1 {
     public void login_with_valid_credentials_with_enter_btn() {
         // 2-write username
         WebElement userName = driver.findElement(By.xpath("(//input[@class='login-inp'])[1]"));
-       // userName.sendKeys(ConfigurationReader.getProperty("username"));
+       userName.sendKeys(ConfigurationReader.getProperty("username"));
         //     * 3-write password
         WebElement password = driver.findElement(By.xpath("(//input[@class='login-inp'])[2]"));
-       // password.sendKeys(ConfigurationReader.getProperty("password")+ Keys.ENTER);
+       password.sendKeys(ConfigurationReader.getProperty("password")+ Keys.ENTER);
         //     * 4-click login button
         // 5 verify title
         String expectedTitle="Portal";
@@ -69,7 +70,7 @@ public class US1_TestCase1 {
     public void login_with_valid_username_invalid_password(){
         // 2-write valid username
         WebElement userName = driver.findElement(By.xpath("(//input[@class='login-inp'])[1]"));
-       // userName.sendKeys(ConfigurationReader.getProperty("username"));
+       userName.sendKeys(ConfigurationReader.getProperty("username"));
         //  3-write invalid password
         WebElement password = driver.findElement(By.xpath("(//input[@class='login-inp'])[2]"));
         password.sendKeys("abcd");
@@ -88,7 +89,7 @@ public class US1_TestCase1 {
     public void login_with_invalid_username_invalid_password() {
         //2.write invalid username
         WebElement userName = driver.findElement(By.xpath("(//input[@class='login-inp'])[1]"));
-       // userName.sendKeys(ConfigurationReader.getProperty("username"));
+        userName.sendKeys(ConfigurationReader.getProperty("username"));
         //  3-write invalid password
         WebElement password = driver.findElement(By.xpath("(//input[@class='login-inp'])[2]"));
         password.sendKeys("abcd");
