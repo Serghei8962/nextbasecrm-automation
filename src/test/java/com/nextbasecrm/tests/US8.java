@@ -1,5 +1,7 @@
 package com.nextbasecrm.tests;
 
+import com.nextbasecrm.utilities.CRM_Utilities;
+import com.nextbasecrm.utilities.ConfigurationReader;
 import com.nextbasecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,39 +9,30 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
-public class MertProject {
+public class US8 {
     WebDriver driver;
     @BeforeMethod
     public void setupMethod(){
-         driver= WebDriverFactory.getDriver("chrome");
-         driver.manage().window().maximize();
-         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-         driver.get("https://login2.nextbasecrm.com/");
-        WebElement username = driver.findElement(By.xpath("//input[@name='USER_LOGIN']"));
-        username.sendKeys("hr40@cydeo.com");
-        WebElement password = driver.findElement(By.xpath("//input[@name='USER_PASSWORD']"));
-        password.sendKeys("UserUser");
-
-        WebElement loginbutton = driver.findElement(By.xpath("//input[@type='submit']"));
-        loginbutton.click();
+        driver = WebDriverFactory.getDriver(ConfigurationReader.getProperty("browser"));
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.get(ConfigurationReader.getProperty("env"));
+        CRM_Utilities.crm_login(driver);
 
         WebElement chatmodule=driver.findElement(By.xpath("//a[@title='Chat and Calls']"));
         chatmodule.click();
 
     }
 
-@Test
+    @Test
     public void test(){
         WebElement message = driver.findElement(By.xpath("//div[@id='bx-desktop-tab-im']"));
         String actualtext=message.getAttribute("title");
 
-    String expectedtext="Message";
-    Assert.assertTrue(actualtext.contains(expectedtext));
+        String expectedtext="Message";
+        Assert.assertTrue(actualtext.contains(expectedtext));
     }
     @Test
     public void test1(){
@@ -65,10 +58,10 @@ public class MertProject {
         ;
     }
 
-@AfterMethod
-public void teardown(){
-driver.quit();
-}
+    @AfterMethod
+    public void teardown(){
+        driver.quit();
+    }
 
 
 
