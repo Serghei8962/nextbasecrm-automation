@@ -28,7 +28,7 @@ public class TaskWithoutTitleCreation {
     }
 
     @Test
-    public void taskWithoutTitle_creation_testHR()  {
+    public void taskWithoutTitle_creation_testHR()   {
 
         driver.get("https://login2.nextbasecrm.com/");
 //As an HR user go to  the main page of the website
@@ -39,22 +39,19 @@ public class TaskWithoutTitleCreation {
 
 //Click to the 'TASK' tab in the upper part of the webpage
         taskTab.click();
-
-//Pass the task description into the empty task body below the task title
+//without locating the task form, test won't pass. Implicit wait won't help
         driver.switchTo().frame(driver.findElement(By.xpath("//div[@id=\"bx-html-editor-iframe-cnt-lifefeed_task_form\"]/iframe")));
         WebElement taskBody= driver.findElement(By.xpath("//html/body[@style='min-height: 84px;']"));
-        taskBody.sendKeys("These are the task details");
         driver.switchTo().parentFrame();
 
 //Click 'SEND' button
         WebElement sendBtn = driver.findElement(By.xpath("//button[@id='blog-submit-button-save']"));
         sendBtn.click();
 
+
 //Verify “The task name is not specified.” massage is displayed.
         WebElement message =driver.findElement(By.xpath("//div[.='The task name is not specified.']"));
         Assert.assertTrue(message.isDisplayed());
-
-
     }
 
     @Test
@@ -70,10 +67,8 @@ public class TaskWithoutTitleCreation {
 //Click to the 'TASK' tab in the upper part of the webpage
         taskTab.click();
 
-//Pass the task description into the empty task body below the task title
         driver.switchTo().frame(driver.findElement(By.xpath("//div[@id=\"bx-html-editor-iframe-cnt-lifefeed_task_form\"]/iframe")));
         WebElement taskBody= driver.findElement(By.xpath("//html/body[@style='min-height: 84px;']"));
-        taskBody.sendKeys("These are the task details");
         driver.switchTo().parentFrame();
 
 //Click 'SEND' button
@@ -83,8 +78,6 @@ public class TaskWithoutTitleCreation {
 //Verify “The task name is not specified.” massage is displayed.
         WebElement message =driver.findElement(By.xpath("//div[.='The task name is not specified.']"));
         Assert.assertTrue(message.isDisplayed());
-
-
     }
 
     @Test
@@ -100,10 +93,8 @@ public class TaskWithoutTitleCreation {
 //Click to the 'TASK' tab in the upper part of the webpage
         taskTab.click();
 
-//Pass the task description into the empty task body below the task title
         driver.switchTo().frame(driver.findElement(By.xpath("//div[@id=\"bx-html-editor-iframe-cnt-lifefeed_task_form\"]/iframe")));
         WebElement taskBody= driver.findElement(By.xpath("//html/body[@style='min-height: 84px;']"));
-        taskBody.sendKeys("These are the task details");
         driver.switchTo().parentFrame();
 
 //Click 'SEND' button
@@ -113,7 +104,6 @@ public class TaskWithoutTitleCreation {
 //Verify “The task name is not specified.” massage is displayed.
         WebElement message =driver.findElement(By.xpath("//div[.='The task name is not specified.']"));
         Assert.assertTrue(message.isDisplayed());
-
 
     }
 }
