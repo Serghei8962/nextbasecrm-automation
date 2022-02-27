@@ -27,10 +27,11 @@ public class US1_TestCase1 {
 
     @BeforeMethod
     public void setUp() {
-      driver=  WebDriverFactory.getDriver("chrome");
-      driver.manage().window().maximize();
-      driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-      driver.get("https://login2.nextbasecrm.com/");
+        driver = WebDriverFactory.getDriver(ConfigurationReader.getProperty("browser"));
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //  1-go to login page
+        driver.get(ConfigurationReader.getProperty("env"));
 
     }
 
