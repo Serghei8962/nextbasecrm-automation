@@ -35,31 +35,34 @@ public class MertProject {
 
 @Test
     public void test(){
-        WebElement message = driver.findElement(By.xpath("//div[@class='bx-desktop-tab-icon bx-desktop-tab-icon-im']"));
-        String actualtext=message.getText();
+        WebElement message = driver.findElement(By.xpath("//div[@id='bx-desktop-tab-im']"));
+        String actualtext=message.getAttribute("title");
+
     String expectedtext="Message";
-    Assert.assertEquals(actualtext,expectedtext);
+    Assert.assertTrue(actualtext.contains(expectedtext));
     }
     @Test
     public void test1(){
 
-        WebElement Notification = driver.findElement(By.xpath("//div[@class='bx-desktop-tab-icon bx-desktop-tab-icon-notify']"));
-        String actualtext=Notification.getText();
+        WebElement Notification = driver.findElement(By.xpath("//div[@id='bx-desktop-tab-notify']"));
+        String actualtext=Notification.getAttribute("title");
         String expectedtext="Notifications";
-
+        Assert.assertTrue(actualtext.contains(expectedtext));
     }
     @Test
     public void test2(){
-        WebElement Setting = driver.findElement(By.xpath("//div[@class='bx-desktop-tab-icon bx-desktop-tab-icon-config']"));
-        String actualtext=Setting.getText();
+        WebElement Setting = driver.findElement(By.xpath("//div[@id='bx-desktop-tab-config']"));
+        String actualtext=Setting.getAttribute("title");
         String expectedtext="Settings";
+        Assert.assertTrue(actualtext.contains(expectedtext));
     }
     @Test
     public void test3(){
-        WebElement activestream = driver.findElement(By.xpath("//div[@class='bx-desktop-tab-icon bx-desktop-tab-icon-im-lf']"));
-        String actualtext=activestream.getText();
+        WebElement activestream = driver.findElement(By.xpath("//div[@id='bx-desktop-tab-im-lf']"));
+        String actualtext=activestream.getAttribute("title");
         String expectedtext="Active Stream";
-        Assert.assertEquals(actualtext,expectedtext);
+        Assert.assertTrue(actualtext.contains(expectedtext));
+        ;
     }
 
 @AfterMethod
