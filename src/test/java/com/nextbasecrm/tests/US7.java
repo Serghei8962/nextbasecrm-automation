@@ -24,45 +24,44 @@ public class US7 {WebDriver driver;
     }
 
     @Test
-    public void one_answer_for_a_poll(){
+    public void one_answer_for_a_poll() {
+        //Writing "Programming language" in the search box and finding existing poll
         WebElement searchInput = driver.findElement(By.xpath("//input[@id='search-textbox-input']"));
-        searchInput.sendKeys("Trying the poll feature with single answer"+ Keys.ENTER);
+        searchInput.sendKeys("Programming language" + Keys.ENTER);
 
-        WebElement voteOrVoteAgainButton = driver.findElement(By.xpath("//div[@id='vote-nSLjLH1036']//button[.='Vote again']"));
-        WebElement voteButton = driver.findElement(By.xpath("//button[.='Vote']"));
-        voteOrVoteAgainButton.click();
+        //finding "vote" button, and after clicking the vote, finding the "vote again" button locator
+        WebElement voteAgainButton = driver.findElement(By.xpath("//input[@id='sessid']/..//button[.='Vote again']"));
+        WebElement voteButton = driver.findElement(By.xpath("//input[@id='sessid']/..//button[.='Vote']"));
+        voteAgainButton.click();
+        //Location java and python answer options locator for clicking
+        WebElement javaOption = driver.findElement(By.xpath("//li[@id='question1166']//label[.='Java']"));
+        WebElement pythonOption = driver.findElement(By.xpath("//li[@id='question1166']//label[.='Python']"));
 
-        BrowserUtils.sleep(2);
-        List<WebElement> answerOptions = driver.findElements(By.xpath("//label[@class='bx-vote-block-input-wrap-inner']//span"));
-        for (WebElement eachAnswer : answerOptions) {
-                BrowserUtils.sleep(2);
-                eachAnswer.click();
-                if(eachAnswer.getText().equals("Python")){
+        //Java and python locator was not able to answer isSelected() method,
+        // so I find other input locator option for java and python
+        // This locator able to answer isSelected() method
+        List<WebElement> IsSelectedOptions = driver.findElements(By.xpath("//input[@name='vote_radio_1166']/..//input"));
 
-                }else if(eachAnswer.getText().equals("Python")){
-                    Assert.assertTrue(eachAnswer.isSelected());
-                 }
+        //Java   value attribute value  =>2616
+        //Python value attribute value  =>2617
+
+        //Verifying one option is selected at a time by verifying if it matches the attribute in their locator
+        for (WebElement each : IsSelectedOptions) {
+            javaOption.click();
+            BrowserUtils.sleep(2);
+            if (each.getAttribute("value").equals("2616")) {
+                Assert.assertTrue(each.isSelected());
             }
-        BrowserUtils.sleep(2);
-        voteButton.click();
         }
 
+        //User click vote button and see if it is selected
+        try {
+            voteButton.click();
+        }catch (StaleElementReferenceException e){
+            Assert.assertTrue(voteButton.isSelected());
+        }
 
-
-//        for (int i = 0 , j= answerOptions.size()-1; i < answerOptions.size(); i++ , j--) {
-//            BrowserUtils.sleep(2);
-//            answerOptions.get(i).click();
-//            if(answerOptions.get(i).isSelected() && !(answerOptions.get(j).isSelected())){
-//                Assert.assertTrue(answerOptions.get(i).isSelected(),"One option is selected");
-//                break;
-//            }
-//        }
-//        voteOrVoteAgainButton.click();
-
-//            BrowserUtils.sleep(1);
-//            Assert.assertTrue(eachAnswer.isSelected());
-
-
+    }
 
     @AfterMethod
     public void tearDown(){
