@@ -17,8 +17,7 @@ public class US5 {
 
     public WebDriver driver;
 
-    //made w sergiu on zoom
-    /*
+    //made w Sergiu on zoom
     @BeforeMethod
     public void setupMethod(){
         driver = WebDriverFactory.getDriver("chrome");
@@ -27,22 +26,24 @@ public class US5 {
         driver.get(ConfigurationReader.getProperty("env"));
         CRM_Utilities.crm_login(driver);
     }
-     */
 
 
 
-    //code made by hulya
+
+    //code made by Hulya
+    /*
     public void setupMethod(){
         driver = WebDriverFactory.getDriver(ConfigurationReader.getProperty("browser"));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfigurationReader.getProperty("env"));
         CRM_Utilities.crm_login(driver,ConfigurationReader.getProperty("username"),"UserUser");
     }
+     */
 
 
 
 
-    //made w sergiu on zoom
+    //made w Sergiu on zoom
     /*
     @Test
     public void write_the_message(){
@@ -68,7 +69,8 @@ public class US5 {
     */
 
 
-    //code made by hulya
+    //code made by Hulya
+    /*
     @Test
     public void TC1_Users_get_errorMessageTitle() {
 
@@ -85,9 +87,53 @@ public class US5 {
         System.out.println("messageTitle.isDisplayed() = " + messageTitle.isDisplayed());
 
     }
+     */
 
 
-    //code made by hulya
+    //code made by Hulya
+    /*
+    @Test
+    public void TC2_Users_send_message_successfully(){
+
+        //click message tab
+        WebElement messageTab = driver.findElement(By.id("feed-add-post-form-tab-message"));
+        messageTab.click();
+
+        //write message in the message body
+        WebElement iframe = driver.findElement(By.xpath("//iframe[@class='bx-editor-iframe']"));
+        driver.switchTo().frame(iframe);
+
+        driver.findElement(By.xpath("//body[@contenteditable='true']")).sendKeys("Hello from Marius");
+        driver.switchTo().parentFrame();
+
+        //click send button
+        WebElement sendBtn = driver.findElement(By.xpath("//button[@id='blog-submit-button-save']"));
+        sendBtn.click();
+
+    }
+     */
+
+
+    //review by Sergiu
+    @Test
+    public void TC1_Users_get_errorMessageTitle() {
+
+        //click message tab
+        WebElement messageTab = driver.findElement(By.id("feed-add-post-form-tab-message"));
+        messageTab.click();
+
+        //click send button
+        WebElement sendBtn = driver.findElement(By.xpath("//button[@id='blog-submit-button-save']"));
+        sendBtn.click();
+
+        //display "The message title is not specified"
+        WebElement messageTitle = driver.findElement(By.xpath("//span[.='The message title is not specified']"));
+        System.out.println("messageTitle.isDisplayed() = " + messageTitle.isDisplayed());
+
+    }
+
+
+    //review by Sergiu
     @Test
     public void TC2_Users_send_message_successfully(){
 
@@ -108,12 +154,16 @@ public class US5 {
 
     }
 
-/*
+
+
+
+
+
     @AfterMethod
     public void tearDown() {
         driver.close();
     }
- */
+
 
 
 
