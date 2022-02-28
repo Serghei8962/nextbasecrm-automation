@@ -1,7 +1,11 @@
 package com.nextbasecrm.tests;
 
+import com.nextbasecrm.utilities.BrowserUtils;
+import com.nextbasecrm.utilities.CRM_Utilities;
+import com.nextbasecrm.utilities.ConfigurationReader;
 import com.nextbasecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.*;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -17,41 +21,28 @@ public class US14 {
 
     @BeforeMethod
     public void setupMethod(){
-        driver = WebDriverFactory.getDriver("chrome");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://login2.nextbasecrm.com/");
+        driver = WebDriverFactory.getDriver(ConfigurationReader.getProperty("browser"));
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.get(ConfigurationReader.getProperty("env"));
+        CRM_Utilities.crm_login(driver,ConfigurationReader.getProperty("username"),"UserUser");
     }
-    @DataProvider(name="T1")
-    public Object[][] login_Datas(){
-        return new Object[][]{
-                {"hr40@cydeo.com"}, {"hr41@cydeo.com"}, {"hr42@cydeo.com"},
-                {"helpdesk40@cydeo.com"}, {"helpdesk41@cydeo.com"}, {"helpdesk42@cydeo.com"},
-                {"marketing40@cydeo.com"}, {"marketing41@cydeo.com"}, {"marketing42@cydeo.com"}
-        };
-    }
-    @Test(dataProvider = "T1")
-    public void user_see_3desktop_option_on_homepage(String email){
 
-        //Sending valid email to username input
-        WebElement usernameInput = driver.findElement(By.xpath("//input[@name='USER_LOGIN']"));
-        usernameInput.sendKeys(email);
-        JavascriptExecutor j = (JavascriptExecutor)driver;
+    @Test
+    public void user_see_3desktop_option_on_homepage(){
         //Sending valid password to password input and hit the enter
-        WebElement passwordInput = driver.findElement(By.xpath("//input[@name='USER_PASSWORD']"));
-        passwordInput.sendKeys("UserUser"+ Keys.ENTER);
-        j.executeScript("window.scrollBy(600,0)");
+
         WebElement CRM24_linkButton = driver.findElement(By.xpath("//a[@id='logo_24_a']"));
         CRM24_linkButton.click();
-        ////div[.='Desktop client']/..//a
+
         List<String> expectedOptionName = new ArrayList<>(Arrays.asList("MAC OS","WINDOWS","LINUX"));
         List<String > actualOptionName = new ArrayList<>();
+        BrowserUtils.sleep(2);
 
-        j.executeScript("window.scrollBy(0,600)");
         List<WebElement> desktopOptions = driver.findElements(By.xpath("//div[@class='b24-app-block b24-app-desktop']//a"));
         for (WebElement eachOption : desktopOptions) {
             actualOptionName.add(eachOption.getText());
         }
-
+        Assert.assertEquals(actualOptionName,expectedOptionName,"User cannot see 3 desktop options");
     }
 
     @AfterMethod
