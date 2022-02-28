@@ -1,9 +1,7 @@
 package com.nextbasecrm.tests;
 
 import com.nextbasecrm.utilities.ConfigurationReader;
-import com.nextbasecrm.utilities.ConfigurationReader;
 import com.nextbasecrm.utilities.WebDriverFactory;
-import com.nextbasecrm.utilities.ConfigurationReader;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -15,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class US_9 {
+public class US9 {
     WebDriver driver;
 
 
