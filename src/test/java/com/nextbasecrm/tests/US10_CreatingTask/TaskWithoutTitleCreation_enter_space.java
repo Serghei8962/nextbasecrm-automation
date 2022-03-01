@@ -1,5 +1,6 @@
 package com.nextbasecrm.tests.US10_CreatingTask;
 
+import com.nextbasecrm.utilities.CRM_Utilities;
 import com.nextbasecrm.utilities.ConfigurationReader;
 import com.nextbasecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
@@ -33,7 +34,7 @@ public class TaskWithoutTitleCreation_enter_space {
     public void taskWithoutTitle_creation_testHR()   {
 
 //As an HR user go to  the main page of the website
-        CRM_Utilities.crm_login(driver, ConfigurationReader.properties.getProperty("username.hr"), ConfigurationReader.properties.getProperty("password"));
+        CRM_Utilities.crm_login(driver, ConfigurationReader.getProperty("username.hr"), ConfigurationReader.getProperty("password"));
 //I'm able to see the dashboard
         WebElement taskTab = driver.findElement(By.xpath("//span[@id='feed-add-post-form-tab-tasks']"));
         Assert.assertTrue(taskTab.isDisplayed());
@@ -61,7 +62,7 @@ public class TaskWithoutTitleCreation_enter_space {
     public void taskWithoutTitle_creation_testMarketing()  {
 
 //As a Marketing user go to  the main page of the website
-        CRM_Utilities.crm_login(driver, ConfigurationReader.properties.getProperty("username.marketing"), ConfigurationReader.properties.getProperty("password"));
+        CRM_Utilities.crm_login(driver, ConfigurationReader.getProperty("username.marketing"), ConfigurationReader.getProperty("password"));
 //I'm able to see the dashboard
         WebElement taskTab = driver.findElement(By.xpath("//span[@id='feed-add-post-form-tab-tasks']"));
         Assert.assertTrue(taskTab.isDisplayed());
@@ -88,7 +89,7 @@ public class TaskWithoutTitleCreation_enter_space {
     public void taskWithoutTitle_creation_testHelpDesk()  {
 
 //As a HelpDesk user go to  the main page of the website
-        CRM_Utilities.crm_login(driver, ConfigurationReader.properties.getProperty("username.helpdesk"), ConfigurationReader.properties.getProperty("password"));
+        CRM_Utilities.crm_login(driver, ConfigurationReader.getProperty("username.helpdesk"), ConfigurationReader.getProperty("password"));
 
 //I'm able to see the dashboard
         WebElement taskTab = driver.findElement(By.xpath("//span[@id='feed-add-post-form-tab-tasks']"));
