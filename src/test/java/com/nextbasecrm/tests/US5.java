@@ -17,7 +17,6 @@ public class US5 {
 
     public WebDriver driver;
 
-
     @BeforeMethod
     public void setupMethod(){
 
