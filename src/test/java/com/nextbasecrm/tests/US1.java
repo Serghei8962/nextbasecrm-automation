@@ -105,4 +105,23 @@ public class US1 {
 
 
     }
+    @Test
+    public void login_with_invalid_username_valid_password() {
+        //2.write invalid username
+        WebElement userName = driver.findElement(By.xpath("(//input[@class='login-inp'])[1]"));
+        userName.sendKeys("abcd123");
+        //  3-write invalid password
+        WebElement password = driver.findElement(By.xpath("(//input[@class='login-inp'])[2]"));
+        password.sendKeys(ConfigurationReader.getProperty("password"));
+        //  4-click login button
+        WebElement loginBtn = driver.findElement(By.xpath("//input[@type='submit']"));
+        BrowserUtils.sleep(3);
+        loginBtn.click();
+        //  5 verify error message
+        String expectedErrorMessage="Incorrect username or password";
+        String actualErrorMessage=driver.findElement(By.xpath("//div[@class='errortext']")).getText();
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
+
+
+    }
 }
