@@ -1,6 +1,5 @@
 package com.nextbasecrm.US10_CreatingTask;
 
-import com.nextbasecrm.utilities.CRM_Utilities;
 import com.nextbasecrm.utilities.ConfigurationReader;
 import com.nextbasecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
