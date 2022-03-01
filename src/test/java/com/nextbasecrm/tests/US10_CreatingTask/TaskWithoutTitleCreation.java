@@ -1,4 +1,4 @@
-package com.nextbasecrm.US10_CreatingTask;
+package com.nextbasecrm.tests.US10_CreatingTask;
 
 import com.nextbasecrm.utilities.ConfigurationReader;
 import com.nextbasecrm.utilities.WebDriverFactory;
