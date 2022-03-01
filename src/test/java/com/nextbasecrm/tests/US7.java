@@ -20,7 +20,7 @@ public class US7 {WebDriver driver;
         driver = WebDriverFactory.getDriver(ConfigurationReader.getProperty("browser"));
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.get(ConfigurationReader.getProperty("env"));
-        CRM_Utilities.crm_login(driver,ConfigurationReader.getProperty("username"),"UserUser");
+        CRM_Utilities.crm_login(driver);
     }
 
     @Test
