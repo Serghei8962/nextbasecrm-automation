@@ -35,11 +35,15 @@ public class US3 {
 
     @Test
     public void logOut(){
+        // Locate the Profile Button and click on it
         WebElement profileBtn = driver.findElement(By.xpath("//div[@id='user-block']"));
         profileBtn.click();
+
+        // Locate the "Logout" Button
         WebElement logOutBtn = driver.findElement(By.xpath("//a[@href=\"/auth/?logout=yes&backurl=%2Fstream%2F\"]"));
         logOutBtn.click();
 
+        // Checking the webpage Title to be the one that is expected Title
         BrowserUtils.verifyTitle(driver,"Authorization");
     }
 
