@@ -17,7 +17,7 @@ public class US5 {
 
     public WebDriver driver;
 
-    //made w Sergiu on zoom
+
     @BeforeMethod
     public void setupMethod(){
 
