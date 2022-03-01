@@ -1,6 +1,7 @@
 package com.nextbasecrm.US10_CreatingTask;
 
 import com.nextbasecrm.utilities.CRM_Utilities;
+import com.nextbasecrm.utilities.ConfigurationReader;
 import com.nextbasecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,24 +11,30 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class TaskCreation {
     public WebDriver driver;
+
     @BeforeMethod
-    public  void driverSetup(){
-        driver = WebDriverFactory.getDriver("chrome");
+    public  void driverSetup() {
+        String browserType = ConfigurationReader.getProperty("browser");
+        driver = WebDriverFactory.getDriver(browserType);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
+        driver.get(ConfigurationReader.getProperty("env"));
     }
 
     @Test
     public void task_creation_testHR()  {
 
-        driver.get("https://login2.nextbasecrm.com/");
 //As an HR user go to  the main page of the website
-        CRM_Utilities.crm_login(driver, "hr40@cydeo.com", "UserUser");
+
+        CRM_Utilities.crm_login(driver, ConfigurationReader.properties.getProperty("username.hr"), ConfigurationReader.properties.getProperty("password"));
+
 //I'm able to see the dashboard
         WebElement taskTab = driver.findElement(By.xpath("//span[@id='feed-add-post-form-tab-tasks']"));
         Assert.assertTrue(taskTab.isDisplayed());
@@ -58,9 +65,8 @@ public class TaskCreation {
     @Test
     public void task_creation_testHelpDesk()  {
 
-        driver.get("https://login2.nextbasecrm.com/");
 //As a HelpDesk user go to  the main page of the website
-        CRM_Utilities.crm_login(driver, "helpdesk40@cydeo.com", "UserUser");
+        CRM_Utilities.crm_login(driver, ConfigurationReader.properties.getProperty("username.helpdesk"), ConfigurationReader.properties.getProperty("password"));
 //I'm able to see the dashboard
         WebElement taskTab = driver.findElement(By.xpath("//span[@id='feed-add-post-form-tab-tasks']"));
         Assert.assertTrue(taskTab.isDisplayed());
@@ -91,9 +97,8 @@ public class TaskCreation {
     @Test
     public void task_creation_testMarketing()  {
 
-        driver.get("https://login2.nextbasecrm.com/");
 //As a Marketing user go to  the main page of the website
-        CRM_Utilities.crm_login(driver, "marketing40@cydeo.com", "UserUser");
+        CRM_Utilities.crm_login(driver, ConfigurationReader.properties.getProperty("username.marketing"), ConfigurationReader.properties.getProperty("password"));
 //I'm able to see the dashboard
         WebElement taskTab = driver.findElement(By.xpath("//span[@id='feed-add-post-form-tab-tasks']"));
         Assert.assertTrue(taskTab.isDisplayed());
