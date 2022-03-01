@@ -13,58 +13,57 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class US7 {WebDriver driver;
+public class US7 {
+    WebDriver driver;
 
     @BeforeMethod
     public void setupMethod() {
         driver = WebDriverFactory.getDriver(ConfigurationReader.getProperty("browser"));
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.get(ConfigurationReader.getProperty("env"));
-        CRM_Utilities.crm_login(driver);
+        CRM_Utilities.crm_login(driver, ConfigurationReader.getProperty("username"), "UserUser");
     }
 
     @Test
     public void one_answer_for_a_poll() {
-        //Writing "Programming language" in the search box and finding existing poll
+        //finding CRM button to refresh the page, so it can take me the homepage without issue
+        WebElement CRM24_linkButton = driver.findElement(By.xpath("//a[@id='logo_24_a']"));
+        CRM24_linkButton.click();
+        //Writing "111222333WHICHPROGRAMMINGLANGUAGETOUSE333222111" in the search box and finding existing poll
         WebElement searchInput = driver.findElement(By.xpath("//input[@id='search-textbox-input']"));
-        searchInput.sendKeys("Programming language" + Keys.ENTER);
+        searchInput.sendKeys("111222333WHICHPROGRAMMINGLANGUAGETOUSE333222111" + Keys.ENTER);
 
-        //finding "vote" button, and after clicking the vote, finding the "vote again" button locator
-        WebElement voteAgainButton = driver.findElement(By.xpath("//input[@id='sessid']/..//button[.='Vote again']"));
-        WebElement voteButton = driver.findElement(By.xpath("//input[@id='sessid']/..//button[.='Vote']"));
-        voteAgainButton.click();
-        //Location java and python answer options locator for clicking
-        WebElement javaOption = driver.findElement(By.xpath("//li[@id='question1166']//label[.='Java']"));
-        WebElement pythonOption = driver.findElement(By.xpath("//li[@id='question1166']//label[.='Python']"));
+        //finding vote and vote again buttons
+        WebElement voteBtn = driver.findElement(By.xpath("//button[.='Vote']"));
+        WebElement voteAgainBtn = driver.findElement(By.xpath("//button[.='Vote again']"));
 
-        //Java and python locator was not able to answer isSelected() method,
-        // so I find other input locator option for java and python
-        // This locator able to answer isSelected() method
-        List<WebElement> IsSelectedOptions = driver.findElements(By.xpath("//input[@name='vote_radio_1166']/..//input"));
-
-        //Java   value attribute value  =>2616
-        //Python value attribute value  =>2617
-
-        //Verifying one option is selected at a time by verifying if it matches the attribute in their locator
-        for (WebElement each : IsSelectedOptions) {
-            javaOption.click();
-            BrowserUtils.sleep(2);
-            if (each.getAttribute("value").equals("2616")) {
-                Assert.assertTrue(each.isSelected());
-            }
+        //if vote again button is displayed, click on it to get vote button
+        if (voteAgainBtn.isDisplayed()) {
+            voteAgainBtn.click();
         }
 
-        //User click vote button and see if it is selected
-        try {
-            voteButton.click();
-        }catch (StaleElementReferenceException e){
-            Assert.assertTrue(voteButton.isSelected());
-        }
+        //finding java and python locators for clicking
+        WebElement javaClick = driver.findElement(By.xpath("//label[.='JAVA']"));
+        WebElement pythonClick = driver.findElement(By.xpath("//label[.='PYTHON']"));
 
+        //finding java and python other locator for isSelected() method
+        WebElement javaSelected = driver.findElement(By.id("vote_radio_1174_2632"));
+        WebElement pythonSelected = driver.findElement(By.id("vote_radio_1174_2633"));
+
+        //clicking java option and verifying java is selected and python is not selected
+        javaClick.click();
+        Assert.assertEquals(javaSelected.isSelected(), !(pythonSelected.isSelected()), "Java is NOT selected");
+
+        //clicking python option and verifying python is selected and java is not selected
+        pythonClick.click();
+        Assert.assertEquals(pythonSelected.isSelected(), !(javaSelected.isSelected()), "Python is NOT selected");
+
+        //after selecting python option,will click to the vote button
+        voteBtn.click();
     }
 
     @AfterMethod
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
 }
