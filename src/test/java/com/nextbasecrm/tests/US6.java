@@ -49,7 +49,6 @@ public class US6 {
     @AfterMethod
     public void tearDown() {
         driver.close();
-
     }
 
 
