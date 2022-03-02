@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -27,11 +28,7 @@ public class US3 {
         CRM_Utilities.crm_login(driver);
 
     }
-    @AfterClass
-    public void afterClass(){
-        BrowserUtils.sleep(3);
-        driver.close();
-    }
+
 
     @Test
     public void logOut(){
@@ -45,6 +42,12 @@ public class US3 {
 
         // Checking the webpage Title to be the one that is expected Title
         BrowserUtils.verifyTitle(driver,"Authorization");
+    }
+
+
+    @AfterMethod
+    public void tearDown(){
+        driver.close();
     }
 
 }
