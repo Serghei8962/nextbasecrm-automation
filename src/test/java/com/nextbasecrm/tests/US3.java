@@ -27,11 +27,7 @@ public class US3 {
         CRM_Utilities.crm_login(driver);
 
     }
-    @AfterClass
-    public void afterClass(){
-        BrowserUtils.sleep(3);
-        driver.close();
-    }
+
 
     @Test
     public void logOut(){
@@ -47,4 +43,8 @@ public class US3 {
         BrowserUtils.verifyTitle(driver,"Authorization");
     }
 
+    @AfterClass
+    public void tearDown(){
+        driver.close();
+    }
 }
