@@ -6,6 +6,8 @@ import com.nextbasecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -42,7 +44,11 @@ public class US6 {
 
         WebElement workflow = driver.findElement(By.xpath("//span[@class='menu-popup-item menu-popup-no-icon feed-add-post-form-lists feed-add-post-form-lists-more ']"));
         System.out.println("workflow.isDisplayed() = " + workflow.isDisplayed());
+    }
 
+    @AfterMethod
+    public void tearDown() {
+        driver.close();
 
     }
 
