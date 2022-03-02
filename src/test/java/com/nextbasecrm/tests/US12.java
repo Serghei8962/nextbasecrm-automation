@@ -1,5 +1,6 @@
 package com.nextbasecrm.tests;
 
+import com.nextbasecrm.utilities.CRM_Utilities;
 import com.nextbasecrm.utilities.ConfigurationReader;
 import com.nextbasecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
@@ -7,6 +8,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,26 +18,14 @@ import java.util.concurrent.TimeUnit;
 public class US12 {
 
     WebDriver driver;
-
-    @BeforeClass
-    public void setUP(){
+    @BeforeMethod
+    public void loginToPage(){
         driver = WebDriverFactory.getDriver(ConfigurationReader.getProperty("browser"));
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfigurationReader.getProperty("env"));
-
+        CRM_Utilities.crm_login(driver);
     }
-
-    @BeforeMethod
-    public void loginToPage(){
-        WebElement userName = driver.findElement(By.xpath("//input[@type='text']"));
-        userName.sendKeys(ConfigurationReader.getProperty("username"));
-
-        WebElement password = driver.findElement(By.xpath("//input[@type='password']"));
-        password.sendKeys(ConfigurationReader.getProperty("password") + Keys.ENTER);
-
-    }
-
     @Test
     public void make_Announcements(){
         WebElement more_tab = driver.findElement(By.xpath("//span[@id='feed-add-post-form-link-text']"));
@@ -88,7 +78,10 @@ public class US12 {
         }else{
             System.out.println("The error message is NOT displayed!");
         }
-        
+    }
+    @AfterMethod
+    public void tearDown(){
+        driver.close();
     }
 }
 
