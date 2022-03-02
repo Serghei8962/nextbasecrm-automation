@@ -77,7 +77,7 @@ public class US_9 {
     }
              @AfterMethod
     public void tearDown(){
-        driver.close();
+         driver.close();
              }
         }
 
