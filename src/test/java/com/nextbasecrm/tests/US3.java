@@ -19,7 +19,7 @@ public class US3 {
     WebDriver driver;
 
     @BeforeMethod
-    public void setup(){
+    public void setup() {
         driver = WebDriverFactory.getDriver(ConfigurationReader.getProperty("browser"));
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
@@ -28,9 +28,14 @@ public class US3 {
 
     }
 
+    @AfterClass
+    public void tearDown() {
+        driver.close();
+    }
+
 
     @Test
-    public void logOut(){
+    public void logOut() {
         // Locate the Profile Button and click on it
         WebElement profileBtn = driver.findElement(By.xpath("//div[@id='user-block']"));
         profileBtn.click();
@@ -40,11 +45,8 @@ public class US3 {
         logOutBtn.click();
 
         // Checking the webpage Title to be the one that is expected Title
-        BrowserUtils.verifyTitle(driver,"Authorization");
-    }
-
-    @AfterClass
-    public void tearDown(){
-        driver.close();
+        BrowserUtils.verifyTitle(driver, "Authorization");
     }
 }
+
+
