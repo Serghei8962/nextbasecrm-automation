@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -24,6 +25,8 @@ public class US1 {
      */
 
     WebDriver driver;
+
+
 
     @BeforeMethod
     public void setUp() {
@@ -46,8 +49,9 @@ public class US1 {
         WebElement title= driver.findElement(By.xpath("//div[.='Authorization']"));
 
         String expectedTitle= "Authorization";
-        String actualTitle= driver.getTitle();
-        Assert.assertEquals(actualTitle,expectedTitle);
+        //String actualTitle= driver.getTitle();
+        //Assert.assertEquals(actualTitle,expectedTitle);
+        BrowserUtils.verifyTitle(driver,expectedTitle);
 
 }
 
@@ -58,12 +62,10 @@ public class US1 {
        userName.sendKeys(ConfigurationReader.getProperty("username"));
         //     * 3-write password
         WebElement password = driver.findElement(By.xpath("(//input[@class='login-inp'])[2]"));
-       password.sendKeys(ConfigurationReader.getProperty("password")+ Keys.ENTER);
         //     * 4-click login button
-        // 5 verify title
-        String expectedTitle="Portal";
-        String actualTitle=driver.getTitle();
-        Assert.assertEquals(actualTitle, expectedTitle);
+       password.sendKeys(ConfigurationReader.getProperty("password")+ Keys.ENTER);
+
+
     }
     //negative scnerio
     // valid username invalid password
@@ -85,7 +87,7 @@ public class US1 {
         Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
 
     }
-
+     ///invalid username and invalid password
     @Test
     public void login_with_invalid_username_invalid_password() {
         //2.write invalid username
@@ -105,6 +107,7 @@ public class US1 {
 
 
     }
+    //invalid username and valid password
     @Test
     public void login_with_invalid_username_valid_password() {
         //2.write invalid username
