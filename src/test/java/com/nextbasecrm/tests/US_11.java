@@ -12,9 +12,12 @@ import com.nextbasecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 public class US_11 {
@@ -28,16 +31,32 @@ public class US_11 {
     }
 
     @Test
-    public void click_user_profile(){
+    public void click_user_profile() {
         //locate and click User profile
         WebElement userProfile = driver.findElement(By.xpath("//span[@id='user-name']"));
         userProfile.click();
         //locate My profile tab and click
         WebElement myProfile = driver.findElement(By.xpath("//span[.='My Profile']"));
         myProfile.click();
+    }
+
+    @Test
+            public void my_profile() {
 
 
+        String expected = " “General “Drive” “Tasks” “Calendar ” “conversations”";
+        WebElement actual = driver.findElement(By.xpath("//div[@class='header-search header-search-empty']"));
+        String actualresult = actual.getText();
+        Assert.assertEquals(expected, actualresult);
 
     }
 
-}
+
+
+        @AfterMethod
+                public void tear_down(){
+            driver.close();
+        }
+    }
+
+
