@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class TaskCreation {
+public class US10 {
     public WebDriver driver;
 
     @BeforeMethod
