@@ -1,11 +1,11 @@
 package com.nextbasecrm.tests;
 
+import com.nextbasecrm.utilities.*;
 import com.nextbasecrm.utilities.ConfigurationReader;
-import com.nextbasecrm.utilities.ConfigurationReader;
-import com.nextbasecrm.utilities.WebDriverFactory;
 import com.nextbasecrm.utilities.ConfigurationReader;
 import org.openqa.selenium.*;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -26,25 +26,15 @@ public class US_9 {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfigurationReader.getProperty("env"));
-    }
+        CRM_Utilities.crm_login(driver);
 
-    @BeforeMethod
-    public void login_to_page(){
 
-        WebElement login = driver.findElement(By.xpath("//input[@type='text']"));
 
-        login.sendKeys(ConfigurationReader.getProperty("username"));
 
-        WebElement password = driver.findElement(By.xpath("//input[@type='password']"));
-
-        password.sendKeys(ConfigurationReader.getProperty("password")+ Keys.ENTER);
-
-//        WebElement submit = driver.findElement(By.xpath("//input[@type='submit']"));
-//        submit.click();
     }
 
     @Test
-    public void StreamActivity(){
+    public void StreamActivity() {
         List<String> expectedTittles = new ArrayList<>(Arrays.asList("Portal", "Site map", "Chat and Calls", "Workgroups and projects", "Site map", "Site map", "Contact Center", "Absence Chart", "Company Structure", "Meeting Rooms", "Company"));
         List<String> allTitles = new ArrayList<>();
         WebElement activityStream = driver.findElement(By.xpath("//li[@id='bx_left_menu_menu_live_feed']"));
@@ -83,7 +73,13 @@ public class US_9 {
         company.click();
         allTitles.add(driver.getTitle());
 
-        Assert.assertEquals(allTitles,expectedTittles,"Title didn't match");
+        Assert.assertEquals(allTitles, expectedTittles, "Title didn't match");
     }
-}
+             @AfterMethod
+    public void tearDown(){
+        driver.close();
+             }
+        }
+
+
 
